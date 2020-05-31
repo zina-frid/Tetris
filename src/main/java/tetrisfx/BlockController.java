@@ -32,12 +32,15 @@ public class BlockController {
             if (block.moveDown()) {
 
                 controller = Controller.controller;
-                controller.block = new Blocks();
-                block = controller.block;
 
-                view.removeRows();
-                view.setBlock(block);
-                view.addBlockToStage(block);
+                if (controller.getGameStatus()) {
+                    controller.block = new Blocks();
+                    block = controller.block;
+
+                    view.removeRows();
+                    view.setBlock(block);
+                    view.addBlockToStage(block);
+                }
             }
         }
 

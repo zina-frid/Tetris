@@ -31,6 +31,8 @@ public class View {
     Text score = new Text("Score: ");
     Text highScore = new Text("Hi-score: ");
     Text gameOver = new Text("GAME OVER!");
+    Text instr = new Text ("Press ENTER to start new game");
+    Text instr2 = new Text ("Press ESCAPE to quit the game");
 
 
     private View (){
@@ -55,19 +57,19 @@ public class View {
         group.getChildren().add(imageView);
 
         score.setStyle("-fx-font: 27 arials;");
-        score.setX(board.getWidth() + 15);
+        score.setX(board.getWidth() + 17);
         score.setY(board.getSize() * 2);
         score.setText("Score: " + board.getScore());
         score.setFill(Color.BLACK);
 
         lines.setStyle("-fx-font: 27 arials;");
-        lines.setX(board.getWidth() + 15);
+        lines.setX(board.getWidth() + 17);
         lines.setY(board.getSize() * 4);
         lines.setText("Lines: " + board.getLinesNum());
         lines.setFill(Color.BLACK);
 
         highScore.setStyle("-fx-font: 27 arials;");
-        highScore.setX(board.getWidth() + 15);
+        highScore.setX(board.getWidth() + 17);
         highScore.setY(board.getSize() * 6);
         highScore.setText("High score: " + board.getHighScore());
         highScore.setFill(Color.BLACK);
@@ -133,7 +135,7 @@ public class View {
         }
 
         if(rows != -1) {
-            board.setScore(board.getScore() + 10 * (rows + 1));
+            board.setScore(board.getScore() + 10 * (2 * rows + 1));
             score.setText("Score: " + board.getScore());
             board.setLinesNum(board.getLinesNum() + (rows + 1));
             lines.setText("Lines: " + board.getLinesNum());
@@ -206,16 +208,28 @@ public class View {
             Rectangle temp = (Rectangle) node;
             group.getChildren().remove(temp);
         }
-        group.getChildren().remove(gameOver);
+        group.getChildren().removeAll(gameOver, instr2, instr);
     }
 
     public void gameOver() {
         gameOver.setStyle("-fx-font: 80 arials;");
         gameOver.setX(60);
-        gameOver.setY((int)(board.getHeigth() / 2));
-        highScore.setText("High score: " + board.getHighScore());
+        gameOver.setY((int)(board.getHeigth() / 2 - 40));
         gameOver.setFill(Color.RED);
-        group.getChildren().add(gameOver);
+
+        instr.setStyle("-fx-font: 40 arials;");
+        instr.setX(35);
+        instr.setY((int)(board.getHeigth() / 2 + 40 ));
+        instr.setFill(Color.ORANGERED);
+
+        instr2.setStyle("-fx-font: 40 arials;");
+        instr2.setX(37);
+        instr2.setY((int)(board.getHeigth() / 2 + 85));
+        instr2.setFill(Color.ORANGERED);
+
+        group.getChildren().addAll(gameOver, instr, instr2);
+        highScore.setText("High score: " + board.getHighScore());
+
 
     }
 
