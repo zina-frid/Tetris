@@ -21,7 +21,7 @@ public class View {
     public static final View view = new View();
 
     BlockController blockController = BlockController.blockController;
-    Controller controller = Controller.controller;
+
     Board board = Board.board;
     private Blocks block;
 
@@ -215,17 +215,17 @@ public class View {
         gameOver.setStyle("-fx-font: 80 arials;");
         gameOver.setX(60);
         gameOver.setY((int)(board.getHeigth() / 2 - 40));
-        gameOver.setFill(Color.RED);
+        gameOver.setFill(Color.DARKRED);
 
         instr.setStyle("-fx-font: 40 arials;");
         instr.setX(35);
         instr.setY((int)(board.getHeigth() / 2 + 40 ));
-        instr.setFill(Color.ORANGERED);
+        instr.setFill(Color.BROWN);
 
         instr2.setStyle("-fx-font: 40 arials;");
         instr2.setX(37);
         instr2.setY((int)(board.getHeigth() / 2 + 85));
-        instr2.setFill(Color.ORANGERED);
+        instr2.setFill(Color.BROWN);
 
         group.getChildren().addAll(gameOver, instr, instr2);
         highScore.setText("High score: " + board.getHighScore());
