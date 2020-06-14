@@ -17,11 +17,11 @@ public class BlockController {
     }
 
     public void moveToTheLeft(Blocks block) {
-        block.moveToTheLeft();
+        block.moves("l");
     }
 
     public void moveToTheRight(Blocks block) {
-        block.moveToTheRight();
+        block.moves("r");
     }
 
     // Отвечает за падение вниз
@@ -29,7 +29,7 @@ public class BlockController {
 
     public void moveDown(Blocks block) {
 
-            if (block.moveDown()) {
+            if (block.moves("d")) {
 
                 controller = Controller.controller;
 

@@ -8,9 +8,9 @@ import javafx.scene.shape.Rectangle;
 public class Blocks {
 
     public Rectangle a;
-    Rectangle b;
-    Rectangle c;
-    Rectangle d;
+    public Rectangle b;
+    public Rectangle c;
+    public Rectangle d;
     char name;
     int currentCofiguration = 1;
 
@@ -134,105 +134,95 @@ public class Blocks {
 
 
 
-    //смещения влево и вправо
+    //смещения влево, вправо и вниз
     //проверка на то, есть ли возможность сдвинуться в пределах поля
     //проверка на то, нет ли ничего там, куда фигура сдвинется
-    //если всё впрорядке, то сдвигаем
-
-    public void moveToTheLeft(){
-        if (a.getX() - size >= 0 && b.getX() - size >= 0 && c.getX() - size >= 0 && d.getX() - size >= 0) {
-
-            int moveA = board.getPosition((int) a.getX() / size - 1, (int) a.getY() / size);
-            int moveB = board.getPosition((int) b.getX() / size - 1, (int) b.getY() / size);
-            int moveC = board.getPosition((int) c.getX() / size - 1, (int) c.getY() / size);
-            int moveD = board.getPosition((int) d.getX() / size - 1, (int) d.getY() / size);
-
-            if (moveA == 0 && moveB == 0 && moveC == 0 && moveD == 0){
-                a.setX(a.getX() - size);
-                b.setX(b.getX() - size);
-                c.setX(c.getX() - size);
-                d.setX(d.getX() - size);
-            }
-        }
-    }
 
 
-    public void moveToTheRight(){
-        if (a.getX() + size <= width - size && b.getX() + size <= width - size &&
-                c.getX() + size <= width - size && d.getX() + size <= width - size) {
-
-            int moveA = board.getPosition((int) a.getX() / size + 1, (int) a.getY() / size);
-            int moveB = board.getPosition((int) b.getX() / size + 1, (int) b.getY() / size);
-            int moveC = board.getPosition((int) c.getX() / size + 1, (int) c.getY() / size);
-            int moveD = board.getPosition((int) d.getX() / size + 1, (int) d.getY() / size);
-
-            if (moveA == 0 && moveB == 0 && moveC == 0 && moveD == 0){
-                a.setX(a.getX() + size);
-                b.setX(b.getX() + size);
-                c.setX(c.getX() + size);
-                d.setX(d.getX() + size);
-            }
-        }
-    }
-
-
-    //смещение вниз
-    //проверка на то, нет ли ничего там, куда фигура сдвинется
-    //если всё впрорядке, то сдвигаем
-
-    public boolean moveDown() {
-
+    public boolean moves(String flag) {
+        int moveX = 0;
+        int moveY = 0;
         boolean end = false;
 
-        //проверка та то, что это самый нижний ряд
-        if ((int) a.getY() == heigth - size || (int) b.getY() == heigth - size ||
-                (int) c.getY() == heigth - size || (int) d.getY() == heigth - size) {
+        //смещение влево
 
-            board.setPosition((int) a.getX() / size, (int) a.getY() / size, 1);
-            board.setPosition((int) b.getX() / size, (int) b.getY() / size, 1);
-            board.setPosition((int) c.getX() / size, (int) c.getY() / size, 1);
-            board.setPosition((int) d.getX() / size, (int) d.getY() / size, 1);
+        if (flag.equals("l")){
+            if (a.getX() - size >= 0 && b.getX() - size >= 0 && c.getX() - size >= 0 && d.getX() - size >= 0){
+                moveX = -1;
+            }
+        }
 
-            end = true;
+        //смещение вправо
 
-        } else {
-            // проверка та то, нет ли блока там, куда сдвинется
-            int nextA = board.getPosition((int) a.getX() / size, ((int) a.getY() / size) + 1);
-            int nextB = board.getPosition((int) b.getX() / size, ((int) b.getY() / size) + 1);
-            int nextC = board.getPosition((int) c.getX() / size, ((int) c.getY() / size) + 1);
-            int nextD = board.getPosition((int) d.getX() / size, ((int) d.getY() / size) + 1);
+        if (flag.equals("r")) {
+            if (a.getX() + size <= width - size && b.getX() + size <= width - size &&
+                    c.getX() + size <= width - size && d.getX() + size <= width - size) {
+                moveX = 1;
+            }
+        }
 
-            if (nextA == 1 || nextB == 1 || nextC == 1 || nextD == 1) {
-                //если есть, то устанавливаем там, где находится сейчас
+        //смещение вниз
+        //проверка на то, нет ли ничего там, куда фигура сдвинется
+        //если всё впрорядке, то сдвигаем
+
+        if (flag.equals("d")){
+
+            if ((int) a.getY() == heigth - size || (int) b.getY() == heigth - size ||
+                    (int) c.getY() == heigth - size || (int) d.getY() == heigth - size) {
+
                 board.setPosition((int) a.getX() / size, (int) a.getY() / size, 1);
                 board.setPosition((int) b.getX() / size, (int) b.getY() / size, 1);
                 board.setPosition((int) c.getX() / size, (int) c.getY() / size, 1);
                 board.setPosition((int) d.getX() / size, (int) d.getY() / size, 1);
 
                 end = true;
+
+            } else {
+                // проверка та то, нет ли блока там, куда сдвинется
+                int nextA = board.getPosition((int) a.getX() / size, ((int) a.getY() / size) + 1);
+                int nextB = board.getPosition((int) b.getX() / size, ((int) b.getY() / size) + 1);
+                int nextC = board.getPosition((int) c.getX() / size, ((int) c.getY() / size) + 1);
+                int nextD = board.getPosition((int) d.getX() / size, ((int) d.getY() / size) + 1);
+
+                if (nextA == 1 || nextB == 1 || nextC == 1 || nextD == 1) {
+                    //если есть, то устанавливаем там, где находится сейчас
+                    board.setPosition((int) a.getX() / size, (int) a.getY() / size, 1);
+                    board.setPosition((int) b.getX() / size, (int) b.getY() / size, 1);
+                    board.setPosition((int) c.getX() / size, (int) c.getY() / size, 1);
+                    board.setPosition((int) d.getX() / size, (int) d.getY() / size, 1);
+
+                    end = true;
+                }
+            }
+            if (a.getY() + size <= heigth - size && b.getY() + size <= heigth - size
+                    && c.getY() + size <= heigth - size && d.getY() + size <= heigth - size) {
+                moveY = 1;
             }
         }
 
-        //если ничего дальше не стоит и ход возможен, то сдвигается
-        if (a.getY() + size <= heigth - size && b.getY() + size <= heigth - size
-                && c.getY() + size <= heigth - size && d.getY() + size <= heigth - size) {
+        int moveA = board.getPosition((int) a.getX() / size + moveX, (int) a.getY() / size + moveY);
+        int moveB = board.getPosition((int) b.getX() / size + moveX, (int) b.getY() / size + moveY);
+        int moveC = board.getPosition((int) c.getX() / size + moveX, (int) c.getY() / size + moveY);
+        int moveD = board.getPosition((int) d.getX() / size + moveX, (int) d.getY() / size + moveY);
 
-            int moveA = board.getPosition((int) a.getX() / size, ((int) a.getY() / size) + 1);
-            int moveB = board.getPosition((int) b.getX() / size, ((int) b.getY() / size) + 1);
-            int moveC = board.getPosition((int) c.getX() / size, ((int) c.getY() / size) + 1);
-            int moveD = board.getPosition((int) d.getX() / size, ((int) d.getY() / size) + 1);
-
-            if (moveA == 0 && moveB == 0 && moveC == 0 && moveD == 0) {
-                a.setY(a.getY() + size);
-                b.setY(b.getY() + size);
-                c.setY(c.getY() + size);
-                d.setY(d.getY() + size);
-            }
+        if (moveA == 0 && moveB == 0 && moveC == 0 && moveD == 0){
+            a.setX(a.getX() + moveX * size);
+            b.setX(b.getX() + moveX * size);
+            c.setX(c.getX() + moveX * size);
+            d.setX(d.getX() + moveX * size);
+            a.setY(a.getY() + moveY * size);
+            b.setY(b.getY() + moveY * size);
+            c.setY(c.getY() + moveY * size);
+            d.setY(d.getY() + moveY * size);
         }
+
         return end;
     }
 
 
+    public void turn(){
+
+    }
     // Переворот блока для разных типов
     // Использует мотод, который определяет возможно ли смещение прямоугольника в заданную клетку,
     // метод, возвращающий номер текущей конфигурации, и метод меняющий номер конфигурации

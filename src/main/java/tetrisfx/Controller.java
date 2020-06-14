@@ -1,5 +1,6 @@
 package tetrisfx;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
@@ -20,29 +21,26 @@ public class Controller {
 
     // задача и таймер который контролирует падение
 
-        Timer timer = new Timer(true);
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    if(getGameStatus()) {
-                        if (block.a.getY() == 0 || block.b.getY() == 0 || block.c.getY() == 0 || block.d.getY() == 0) {
-                            if (isFull()) {
-                                view.gameOver();
-                                setGameStatus(false);
-
-                            }
-                        }
-
-                        if (getGameStatus()) {
-                            blockController.moveDown(block);
-
+    Timer timer = new Timer(true);
+    TimerTask task = new TimerTask() {
+        @Override
+        public void run() {
+            Platform.runLater(() -> {
+                if(getGameStatus()) {
+                    if (block.a.getY() == 0 || block.b.getY() == 0 || block.c.getY() == 0 || block.d.getY() == 0) {
+                        if (isFull()) {
+                            view.gameOver();
+                            setGameStatus(false);
                         }
                     }
+                    if (getGameStatus()) {
+                        blockController.moveDown(block);
+                    }
+                }
 
-                });
-            }
-        };
+            });
+        }
+    };
 
 
     public void initGame() throws Exception {
@@ -56,6 +54,7 @@ public class Controller {
             throw new IllegalStateException("Already constructed");
         }
     }
+
     public void setGameStatus(boolean status){
         this.gameStatus = status;
     }
@@ -63,7 +62,6 @@ public class Controller {
     public boolean getGameStatus(){
         return gameStatus;
     }
-
 
     public boolean isFull(){
         int count = 0;
@@ -77,4 +75,5 @@ public class Controller {
         }
         return count >= board.getY();
     }
+
 }
