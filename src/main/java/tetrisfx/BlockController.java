@@ -63,7 +63,6 @@ public class BlockController {
         view.setBlock(controller.block);
         view.addBlockToStage(controller.block);
 
-
     }
 
 }

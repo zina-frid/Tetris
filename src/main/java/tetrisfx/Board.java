@@ -28,6 +28,7 @@ public class Board {
         }
     }
 
+
     public int getScore() {
         return score;
     }
@@ -81,5 +82,6 @@ public class Board {
     public void setHighScore(int highScore) {
         this.highScore = highScore;
     }
+
 }
 

@@ -19,7 +19,6 @@ import java.util.List;
 public class View {
 
     public static final View view = new View();
-
     BlockController blockController = BlockController.blockController;
 
     Board board = Board.board;

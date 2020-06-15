@@ -1,6 +1,5 @@
 package tetrisfx;
 
-import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
