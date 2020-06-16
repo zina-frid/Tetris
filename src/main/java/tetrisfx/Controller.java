@@ -47,7 +47,7 @@ public class Controller {
         timer.schedule(task, 0, 300);
     }
 
-    private Controller() {
+    public Controller() {
         block = new Blocks();
         if (controller != null) {
             throw new IllegalStateException("Already constructed");
