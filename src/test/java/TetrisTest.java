@@ -22,15 +22,15 @@ public class TetrisTest {
         Thread.sleep(10);
     }
 
-    Board board = Board.board;
     Controller controller = Controller.controller;
     View view = View.view;
+    Board board = view.getBoard();
 
 
     @Test
     public void testForClear(){
         for (int i = 0; i < board.getY(); i++){
-            board.setPosition(4, i, 1);
+            board.setPosition(5, i, 1);
         }
         assertTrue(controller.isFull());
         view.clearBoard();
@@ -101,11 +101,11 @@ public class TetrisTest {
     public void testForFull(){
         view.clearBoard();
         for (int i = 0; i < board.getY(); i++){
-            board.setPosition(4, i, 1);
+            board.setPosition(5, i, 1);
         }
         assertTrue(controller.isFull());
 
-        board.setPosition(4, board.getY() - 1, 0);
+        board.setPosition(5, board.getY() - 1, 0);
         assertFalse(controller.isFull());
 
     }

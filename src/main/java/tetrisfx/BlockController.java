@@ -5,12 +5,9 @@ public class BlockController {
     public static final BlockController blockController = new BlockController();
     private Controller controller;
     private View view = View.view;
-    private Board board = Board.board;
-
-
+    Board board = view.getBoard();
 
     private BlockController() {
-
         if (blockController != null) {
             throw new IllegalStateException("BlockCotroller is already exist");
         }
@@ -28,22 +25,19 @@ public class BlockController {
     // Если блок достиг низа или других блоков, генерирует новый блок наверху
 
     public void moveDown(Blocks block) {
+        if (block.moves("d")) {
+            controller = Controller.controller;
 
-            if (block.moves("d")) {
+            if (controller.getGameStatus()) {
+                controller.block = new Blocks();
+                block = controller.block;
 
-                controller = Controller.controller;
-
-                if (controller.getGameStatus()) {
-                    controller.block = new Blocks();
-                    block = controller.block;
-
-                    view.removeRows();
-                    view.setBlock(block);
-                    view.addBlockToStage(block);
-                }
+                view.removeRows();
+                view.setBlock(block);
+                view.addBlockToStage(block);
             }
         }
-
+    }
 
     public void turnBlock(Blocks block) {
         block.turnBlock();
@@ -52,8 +46,7 @@ public class BlockController {
     public void newGame() {
         view.clearBoard();
         controller.setGameStatus(true);
-        if(board.getHighScore() < board.getScore())
-            board.setHighScore(board.getScore());
+        if (board.getHighScore() < board.getScore()) board.setHighScore(board.getScore());
         board.setScore(0);
         board.setLinesNum(0);
         view.score.setText("Score: " + board.getScore());
@@ -62,7 +55,6 @@ public class BlockController {
         controller.block = new Blocks();
         view.setBlock(controller.block);
         view.addBlockToStage(controller.block);
-
     }
 
 }

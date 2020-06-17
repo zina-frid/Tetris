@@ -21,7 +21,12 @@ public class View {
     public static final View view = new View();
     BlockController blockController = BlockController.blockController;
 
-    Board board = Board.board;
+    private Board board = new Board();
+
+    public Board getBoard(){
+        return board;
+    }
+
     private Blocks block;
 
     private Pane group = new Pane();
@@ -181,7 +186,6 @@ public class View {
             } while (rows >= 0);
         }
     }
-
 
     public void clearBoard() {
         List<Node> list = new ArrayList<>();

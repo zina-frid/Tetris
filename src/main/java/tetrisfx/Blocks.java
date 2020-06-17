@@ -4,7 +4,6 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
-
 public class Blocks {
 
     public Rectangle a;
@@ -14,18 +13,19 @@ public class Blocks {
     char name;
     int currentCofiguration = 1;
 
-    Board board = Board.board;
+    private View view = View.view;
+    Board board = view.getBoard();
+
     int size = board.getSize();
     int width = board.getWidth();
     int heigth = board.getHeigth();
     int center = width / 2;
-
     Image image;
-
 
     //конструктор блоков
     //сгенерированное число отсылает к одной из семи фигур
     //фигура собирается из 4х соответствующе окрашенных прямоугольников в центре поля
+
     public Blocks(){
 
         a = new Rectangle(30,30);
@@ -133,11 +133,9 @@ public class Blocks {
     }
 
 
-
     //смещения влево, вправо и вниз
     //проверка на то, есть ли возможность сдвинуться в пределах поля
     //проверка на то, нет ли ничего там, куда фигура сдвинется
-
 
     public boolean moves(String flag) {
         int moveX = 0;
@@ -223,6 +221,7 @@ public class Blocks {
     // Переворот блока для разных типов
     // Использует мотод, который определяет возможно ли смещение прямоугольника в заданную клетку,
     // метод, возвращающий номер текущей конфигурации, и метод меняющий номер конфигурации
+
     public void turnBlock() {
         int turn = 0;
         switch (name){
@@ -425,8 +424,8 @@ public class Blocks {
         }
     }
 
-
     //возвращает true, если можно сместить переданный прямоугольник на заданное количество клеток
+
     public boolean changePosition(Rectangle rect, int h, int v){
 
         boolean horizontal = false;
@@ -453,11 +452,13 @@ public class Blocks {
     }
 
     //возвращает номер текущей конфигурации
+
     public int getCurrentCofiguration(){
         return currentCofiguration;
     }
 
     //меняет номер текущей конфигурации
+
     public void changeConfiguration(){
         if (currentCofiguration != 4) currentCofiguration++;
         else currentCofiguration = 1;

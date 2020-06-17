@@ -12,11 +12,12 @@ public class Controller {
     public static final Controller controller = new Controller();
     private BlockController blockController = BlockController.blockController;
     private View view = View.view;
-    Board board = Board.board;
+    Board board = view.getBoard();
 
     Stage stage;
     Blocks block;
     private boolean gameStatus = true;
+
 
     // задача и таймер который контролирует падение
 
@@ -26,12 +27,11 @@ public class Controller {
         public void run() {
             Platform.runLater(() -> {
                 if(getGameStatus()) {
-                    if (block.a.getY() == 0 || block.b.getY() == 0 || block.c.getY() == 0 || block.d.getY() == 0) {
-                        if (isFull()) {
-                            view.gameOver();
-                            setGameStatus(false);
-                        }
+                    if (isFull()) {
+                        setGameStatus(false);
+                        view.gameOver();
                     }
+
                     if (getGameStatus()) {
                         blockController.moveDown(block);
                     }
@@ -40,7 +40,6 @@ public class Controller {
             });
         }
     };
-
 
     public void initGame() throws Exception {
         view.viewStuff(stage, block);
