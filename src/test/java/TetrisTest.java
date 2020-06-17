@@ -37,7 +37,7 @@ public class TetrisTest {
         assertFalse(controller.isFull());
     }
 
-    
+
     @Test
     public void testForLeft() {
         view.clearBoard();

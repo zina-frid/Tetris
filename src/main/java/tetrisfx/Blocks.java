@@ -224,30 +224,25 @@ public class Blocks {
     // Использует мотод, который определяет возможно ли смещение прямоугольника в заданную клетку,
     // метод, возвращающий номер текущей конфигурации, и метод меняющий номер конфигурации
     public void turnBlock() {
+        int turn = 0;
         switch (name){
             case 'I':
                 if(getCurrentCofiguration() % 2 == 1 && changePosition(a, 1, -1)
                         && changePosition(c, -1, 1) && changePosition(d, -2, 2)) {
-
-                    a.setX(a.getX() + size);
-                    a.setY(a.getY() - size);
-                    c.setX(c.getX() - size);
-                    c.setY(c.getY() + size);
-                    d.setX(d.getX() - 2 * size);
-                    d.setY(d.getY() + 2 * size);
-                    changeConfiguration();
+                    turn = 1;
 
                 } else if(getCurrentCofiguration() % 2 == 0 && changePosition(a, -1, 1)
                         && changePosition(c, 1, -1) && changePosition(d, 2, -2)) {
-
-                    a.setX(a.getX() - size);
-                    a.setY(a.getY() + size);
-                    c.setX(c.getX() + size);
-                    c.setY(c.getY() - size);
-                    d.setX(d.getX() + 2 * size);
-                    d.setY(d.getY() - 2 * size);
-                    changeConfiguration();
+                    turn = -1;
                 }
+                a.setX(a.getX() + turn * size);
+                a.setY(a.getY() - turn * size);
+                c.setX(c.getX() - turn * size);
+                c.setY(c.getY() + turn * size);
+                d.setX(d.getX() - 2 * turn * size);
+                d.setY(d.getY() + 2 * turn * size);
+
+                changeConfiguration();
                 break;
 
             case 'J':
@@ -360,70 +355,53 @@ public class Blocks {
             case 'S':
                 if(getCurrentCofiguration() % 2 == 1
                         && changePosition(a, -2, -1) && changePosition(d, 0, -1)) {
-
-                    a.setX(a.getX() - 2 * size);
-                    a.setY(a.getY() - size);
-                    d.setY(d.getY() - size);
-
-                    changeConfiguration();
+                    turn = -1;
 
                 } else if(getCurrentCofiguration() % 2 == 0
                         && changePosition(a, 2, 1) && changePosition(d, 0, 2)) {
-
-                    a.setX(a.getX() + 2 * size);
-                    a.setY(a.getY() + size);
-                    d.setY(d.getY() + size);
-
-                    changeConfiguration();
+                    turn = 1;
                 }
+                a.setX(a.getX() + turn * 2 * size);
+                a.setY(a.getY() + turn * size);
+                d.setY(d.getY() + turn * size);
+
+                changeConfiguration();
                 break;
 
             case 'T':
-                if(getCurrentCofiguration() == 1 && changePosition(a, 1, -1)
+                if(getCurrentCofiguration() % 2 == 1){
+                    if(getCurrentCofiguration() == 1 && changePosition(a, 1, -1)
                         && changePosition(c, -1, 1) && changePosition(d, -1, -1)) {
-
-                    a.setX(a.getX() + size);
-                    a.setY(a.getY() - size);
-                    c.setX(c.getX() - size);
-                    c.setY(c.getY() + size);
-                    d.setX(d.getX() - size);
-                    d.setY(d.getY() - size);
-
-                    changeConfiguration();
-
-                } else if(getCurrentCofiguration() == 2 && changePosition(a, 1, 1)
-                        && changePosition(c, -1, -1) && changePosition(d, 1, -1)) {
-
-                    a.setX(a.getX() + size);
-                    a.setY(a.getY() + size);
-                    c.setX(c.getX() - size);
-                    c.setY(c.getY() - size);
-                    d.setX(d.getX() + size);
-                    d.setY(d.getY() - size);
-
-                    changeConfiguration();
+                    turn = 1;
 
                 } else if(getCurrentCofiguration() == 3 && changePosition(a, -1, 1)
-                        && changePosition(c, 1, -1) && changePosition(d, 1, 1)) {
-
-                    a.setX(a.getX() - size);
-                    a.setY(a.getY() + size);
-                    c.setX(c.getX() + size);
-                    c.setY(c.getY() - size);
-                    d.setX(d.getX() + size);
-                    d.setY(d.getY() + size);
+                            && changePosition(c, 1, -1) && changePosition(d, 1, 1)) {
+                        turn = - 1;
+                    }
+                    a.setX(a.getX() + turn * size);
+                    a.setY(a.getY() - turn * size);
+                    c.setX(c.getX() - turn * size);
+                    c.setY(c.getY() + turn * size);
+                    d.setX(d.getX() - turn * size);
+                    d.setY(d.getY() - turn * size);
 
                     changeConfiguration();
+                }
+                else if(getCurrentCofiguration() % 2 == 0) {
+                    if (getCurrentCofiguration() == 2 && changePosition(a, 1, 1)
+                            && changePosition(c, -1, -1) && changePosition(d, 1, -1)) {
+                        turn = 1;
 
-                } else if(getCurrentCofiguration() == 4 && changePosition(a, -1, -1)
-                        && changePosition(c, 1, 1) && changePosition(d, -1, 1)) {
-
-                    a.setX(a.getX() - size);
-                    a.setY(a.getY() - size);
-                    c.setX(c.getX() + size);
-                    c.setY(c.getY() + size);
-                    d.setX(d.getX() - size);
-                    d.setY(d.getY() + size);
+                    } else if (getCurrentCofiguration() == 4 && changePosition(a, -1, -1)
+                            && changePosition(c, 1, 1) && changePosition(d, -1, 1)) {
+                        turn = -1;
+                    }
+                    a.setX(a.getX() + turn * size);
+                    a.setY(a.getY() + turn * size);
+                    c.setX(c.getX() - turn * size);
+                    c.setY(c.getY() - turn * size);
+                    d.setX(d.getX() + turn * size);
+                    d.setY(d.getY() - turn * size);
 
                     changeConfiguration();
                 }
@@ -432,22 +410,17 @@ public class Blocks {
             case 'Z':
                 if(getCurrentCofiguration() % 2 == 1
                         && changePosition(c, -1, 0) && changePosition(d, -1, -2)) {
+                    turn = -1;
 
-                    c.setX(c.getX() - size);
-                    d.setX(d.getX() - size);
-                    d.setY(d.getY() - 2 * size);
-
-                    changeConfiguration();
-
-                } else if(getCurrentCofiguration() % 2 == 0 && changePosition(c, 1, 0)
+                }else if(getCurrentCofiguration() % 2 == 0 && changePosition(c, 1, 0)
                         && changePosition(d, 1, 2)) {
-
-                    c.setX(c.getX() + size);
-                    d.setX(d.getX() + size);
-                    d.setY(d.getY() + 2 * size);
-
-                    changeConfiguration();
+                    turn = 1;
                 }
+                c.setX(c.getX() + turn * size);
+                d.setX(d.getX() + turn * size);
+                d.setY(d.getY() + turn * 2 * size);
+
+                changeConfiguration();
                 break;
         }
     }
