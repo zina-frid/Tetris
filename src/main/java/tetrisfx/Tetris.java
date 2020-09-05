@@ -10,6 +10,7 @@ public class Tetris extends Application {
 
        Controller controller = Controller.controller;
        controller.stage = primaryStage;
+
        controller.initGame();
 
     }
